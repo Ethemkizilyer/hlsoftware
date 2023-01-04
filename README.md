@@ -1,7 +1,8 @@
 ## About The Project
 It is a mini library where the products produced by finding books are displayed on the main page and the Contacts page actively performs post processing.
 
-DEMO: hlsoftware.vercel.app
+DEMO: https://hlsoftware.vercel.app/home/product
+
 
 <!-- DESCRİPTİON -->
 ## Description
