@@ -2,28 +2,25 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { postApp } from "../features/userSlice";
 
-
 const Contact = () => {
-    const dispatch = useDispatch()
-    const [user, setUser] = useState({
-      Name: "",
-      PhoneNumber: "",
-      Email: "",
-      Message: "",
-    });
-    
-    
+  const dispatch = useDispatch();
+  const [user, setUser] = useState({
+    Name: "",
+    PhoneNumber: "",
+    Email: "",
+    Message: "",
+  });
 
-const handleSubmit=(e)=>{
-    e.preventDefault()
-    console.log(user)
-    dispatch(postApp(user))
-}
+  // Form Submit
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    dispatch(postApp(user));
+  };
 
   return (
-    <div className="mx-auto block p-6 rounded-lg shadow-lg bg-white max-w-[600px]">
+    <div className="mx-auto block p-6 rounded-lg shadow-lg bg-white max-w-[600px] mt-16">
       <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 ">
           <div className="form-group mb-6">
             <input
               type="text"
