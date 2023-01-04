@@ -1,9 +1,8 @@
-import React, { useEffect} from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getProductsData } from "../features/userSlice";
 
 const Home = () => {
-
   const dispatch = useDispatch();
 
   const { productsData } = useSelector((store) => store.user);
@@ -14,7 +13,7 @@ const Home = () => {
 
   return (
     <div className="flex flex-col items-center justify-center">
-      <div className="overflow-x-auto sm:-mx-6 lg:-mx-8">
+      <div>
         <div className="py-2 inline-block min-w-full sm:px-6 lg:px-8">
           <div className="overflow-hidden">
             <table className="min-w-full border mt-5">

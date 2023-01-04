@@ -4,6 +4,7 @@ import Navbar from "./components/Navbar";
 import Home from "./page/Home";
 import Contact from "./page/Contact";
 import PrivateRouter from "./router/PrivateRouter";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="home/product" element={<Home />} />
         <Route path="home/contact" element={<Contact />} />
       </Routes>
+      <Footer/>
     </BrowserRouter>
   );
 }
