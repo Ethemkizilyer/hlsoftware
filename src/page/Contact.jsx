@@ -18,7 +18,7 @@ const Contact = () => {
   };
 
   return (
-    <div className="mx-auto block p-6 rounded-lg shadow-lg bg-white max-w-[600px] mt-16">
+    <div className="mx-auto block p-6 rounded-lg shadow-lg bg-white max-w-[600px] mb-[168px] mt-16">
       <form onSubmit={handleSubmit}>
         <div className="grid grid-cols-2 gap-4 ">
           <div className="form-group mb-6">
