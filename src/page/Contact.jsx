@@ -1,33 +1,53 @@
-import React, { useState } from "react";
+import React from "react";
+import { Formik, Form, Field, ErrorMessage } from "formik";
+import * as Yup from "yup";
+import { TextField, Button } from "@mui/material";
 import { useDispatch } from "react-redux";
 import { postApp } from "../features/userSlice";
 
-const Contact = () => {
-  const dispatch = useDispatch();
-  const [user, setUser] = useState({
-    Name: "",
-    PhoneNumber: "",
-    Email: "",
-    Message: "",
-  });
-
-  // Form Submit
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch(postApp(user));
-  };
-
+const FormSchema = Yup.object().shape({
+  Name: Yup.string().required("Ad Soyad gerekli"),
+  PhoneNumber: Yup.string()
+    .matches(
+      /^[1-9][0-9]{9}$/,
+      "Telefon numaranızı 0 ile yazmayın,10 rakamdan oluşmalı"
+    )
+    .required("Telefon numarası giriniz"),
+  Email: Yup.string().email("Geçersiz e-posta").required("Email gerekli"),
+  Message: Yup.string()
+    .max(256, "Mesaj 256 karakterden kısa olmalıdır")
+    .required("Mesaj gereklidir"),
+});
+export const Contact = () => {
+const dispatch = useDispatch();
   return (
-    <div className="mx-auto block p-6 rounded-lg shadow-lg bg-white max-w-[600px] mb-[168px] mt-16">
-      <form onSubmit={handleSubmit}>
-        <div className="grid grid-cols-2 gap-4 ">
-          <div className="form-group mb-6">
-            <input
-              type="text"
-              required
-              value={user?.Name}
-              onChange={(e) => setUser({ ...user, Name: e.target.value })}
-              className="form-control
+    <Formik
+      initialValues={{
+        Name: "",
+        PhoneNumber: "",
+        Email: "",
+        Message: "",
+      }}
+      validationSchema={FormSchema}
+      onSubmit={(values, actions) => {
+        dispatch(postApp(values));
+
+        actions.setSubmitting(false);
+      }}
+    >
+      {({ isSubmitting }) => (
+        <div className="mx-auto block p-6 rounded-lg shadow-lg bg-white max-w-[600px] mb-[168px] mt-16">
+          <Form>
+            <div className="grid grid-cols-2 gap-4 ">
+              <div className="form-group mb-6">
+                <Field
+                  name="Name"
+                  as={TextField}
+                  label="Ad-Soyad"
+                  variant="outlined"
+                  fullWidth
+                  margin="normal"
+                  className="form-control
           block
           w-full
           px-3
@@ -42,20 +62,19 @@ const Contact = () => {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="exampleInput123"
-              aria-describedby="emailHelp123"
-              placeholder="Adayın Adı Soyadı"
-            />
-          </div>
-          <div className="form-group mb-6">
-            <input
-              type="tel"
-              required
-              value={user?.PhoneNumber}
-              onChange={(e) =>
-                setUser({ ...user, PhoneNumber: e.target.value })
-              }
-              className="form-control
+                />
+                <ErrorMessage name="Name" component="div" />
+              </div>
+              <div className="form-group mb-6">
+                <Field
+                  name="PhoneNumber"
+                  as={TextField}
+                  label="Telefon Numarası"
+                  variant="outlined"
+                  fullWidth
+                  placeholder="5XXXXXXXX"
+                  margin="normal"
+                  className="form-control
           block
           w-full
           px-3
@@ -70,19 +89,20 @@ const Contact = () => {
           ease-in-out
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-              id="exampleInput124"
-              aria-describedby="emailHelp124"
-              placeholder="Telefon Numarası (5XXXXXXXX)"
-            />
-          </div>
-        </div>
-        <div className="form-group mb-6">
-          <input
-            type="email"
-            value={user?.Email}
-            required
-            onChange={(e) => setUser({ ...user, Email: e.target.value })}
-            className="form-control block
+                />
+                <ErrorMessage name="PhoneNumber" component="div" />
+              </div>
+            </div>
+            <div className="form-group mb-6">
+              <Field
+                name="Email"
+                as={TextField}
+                label="E-posta"
+                type="email"
+                variant="outlined"
+                fullWidth
+                margin="normal"
+                className="form-control block
         w-full
         px-3
         py-1.5
@@ -96,15 +116,20 @@ const Contact = () => {
         ease-in-out
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
-            id="exampleInput8"
-            placeholder="E-Posta Adresi"
-          />
-        </div>
-        <div className="form-group mb-6">
-          <textarea
-            required
-            onChange={(e) => setUser({ ...user, Message: e.target.value })}
-            className="
+              />
+              <ErrorMessage name="Email" component="div" />
+            </div>
+            <div className="form-group mb-6">
+              <Field
+                name="Message"
+                as={TextField}
+                label="Mesaj"
+                variant="outlined"
+                multiline
+                rows={4}
+                fullWidth
+                margin="normal"
+                className="
         form-control
         block
         w-full
@@ -121,16 +146,13 @@ const Contact = () => {
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       "
-            id="exampleFormControlTextarea13"
-            rows={3}
-            placeholder="Mesaj"
-            defaultValue={""}
-          />
-        </div>
-
-        <button
-          type="submit"
-          className="
+              />
+              <ErrorMessage name="Message" component="div" />
+            </div>
+            <Button
+              type="submit"
+              disabled={isSubmitting}
+              className="
       w-full
       px-6
       py-2.5
@@ -148,12 +170,12 @@ const Contact = () => {
       transition
       duration-150
       ease-in-out"
-        >
-          Gönder
-        </button>
-      </form>
-    </div>
+            >
+              GÖNDER
+            </Button>
+          </Form>
+        </div>
+      )}
+    </Formik>
   );
-};
-
-export default Contact;
+}

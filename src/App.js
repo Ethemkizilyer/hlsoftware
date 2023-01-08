@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./App.css";
 import Navbar from "./components/Navbar";
 import Home from "./page/Home";
-import Contact from "./page/Contact";
 import PrivateRouter from "./router/PrivateRouter";
 import Footer from "./components/Footer";
+import { Contact } from "./page/Contact";
+
 
 function App() {
   return (
