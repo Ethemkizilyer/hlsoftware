@@ -31,7 +31,7 @@ const dispatch = useDispatch();
       validationSchema={FormSchema}
       onSubmit={(values, actions) => {
         dispatch(postApp(values));
-
+        actions.resetForm()
         actions.setSubmitting(false);
       }}
     >
