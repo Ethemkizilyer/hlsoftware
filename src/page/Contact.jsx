@@ -18,8 +18,9 @@ const FormSchema = Yup.object().shape({
     .max(256, "Mesaj 256 karakterden kısa olmalıdır")
     .required("Mesaj gereklidir"),
 });
+
 export const Contact = () => {
-const dispatch = useDispatch();
+  const dispatch = useDispatch();
   return (
     <Formik
       initialValues={{
@@ -31,7 +32,7 @@ const dispatch = useDispatch();
       validationSchema={FormSchema}
       onSubmit={(values, actions) => {
         dispatch(postApp(values));
-        actions.resetForm()
+        actions.resetForm();
         actions.setSubmitting(false);
       }}
     >
@@ -63,7 +64,11 @@ const dispatch = useDispatch();
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 />
-                <ErrorMessage name="Name" component="div" />
+                <ErrorMessage
+                  name="Name"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
               <div className="form-group mb-6">
                 <Field
@@ -90,7 +95,11 @@ const dispatch = useDispatch();
           m-0
           focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
                 />
-                <ErrorMessage name="PhoneNumber" component="div" />
+                <ErrorMessage
+                  name="PhoneNumber"
+                  component="div"
+                  style={{ color: "red" }}
+                />
               </div>
             </div>
             <div className="form-group mb-6">
@@ -117,7 +126,11 @@ const dispatch = useDispatch();
         m-0
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
               />
-              <ErrorMessage name="Email" component="div" />
+              <ErrorMessage
+                name="Email"
+                component="div"
+                style={{ color: "red" }}
+              />
             </div>
             <div className="form-group mb-6">
               <Field
@@ -147,7 +160,11 @@ const dispatch = useDispatch();
         focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none
       "
               />
-              <ErrorMessage name="Message" component="div" />
+              <ErrorMessage
+                name="Message"
+                component="div"
+                style={{ color: "red" }}
+              />
             </div>
             <Button
               type="submit"
@@ -156,7 +173,7 @@ const dispatch = useDispatch();
       w-full
       px-6
       py-2.5
-      bg-blue-600
+      bg-red-100
       text-white
       font-medium
       text-xs
@@ -164,12 +181,13 @@ const dispatch = useDispatch();
       uppercase
       rounded
       shadow-md
-      hover:bg-blue-700 hover:shadow-lg
+      hover:bg-blue-500 hover:shadow-lg
       focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
       active:bg-blue-800 active:shadow-lg
       transition
       duration-150
-      ease-in-out"
+      ease-in-out "
+              variant="contained"
             >
               GÖNDER
             </Button>
@@ -178,4 +196,4 @@ const dispatch = useDispatch();
       )}
     </Formik>
   );
-}
+};
